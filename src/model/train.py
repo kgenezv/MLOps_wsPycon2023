@@ -150,7 +150,7 @@ from torch.utils.data import DataLoader
 
 def train_and_log(config,experiment_id='99'):
     with wandb.init(
-        project="MLOps-Pycon2023", 
+        project="MLOps-Pycon2023-FashionMNIST", 
         name=f"Train Model ExecId-{args.IdExecution} ExperimentId-{experiment_id}", 
         job_type="train-model", config=config) as run:
         config = wandb.config
@@ -163,7 +163,7 @@ def train_and_log(config,experiment_id='99'):
         train_loader = DataLoader(training_dataset, batch_size=config.batch_size)
         validation_loader = DataLoader(validation_dataset, batch_size=config.batch_size)
         
-        model_artifact = run.use_artifact("linear:latest")
+        model_artifact = run.use_artifact("linear-classifier-fashionmnist:latest")
         model_dir = model_artifact.download()
         model_path = os.path.join(model_dir, "initialized_model_linear.pth")
         model_config = model_artifact.metadata
@@ -192,7 +192,7 @@ def train_and_log(config,experiment_id='99'):
 def evaluate_and_log(experiment_id='99',config=None,):
     
     with wandb.init(project="MLOps-Pycon2023", name=f"Eval Model ExecId-{args.IdExecution} ExperimentId-{experiment_id}", job_type="eval-model", config=config) as run:
-        data = run.use_artifact('mnist-preprocess:latest')
+        data = run.use_artifact('fashion-mnist-preprocess:latest')
         data_dir = data.download()
         testing_set = read(data_dir, "test")
 
