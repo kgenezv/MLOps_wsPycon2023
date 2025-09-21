@@ -56,7 +56,7 @@ def load_and_log():
                 torch.save((x, y), file)
 
         # ✍️ Save the artifact to W&B.
-        run.log_artifact(raw_data) #KEVIN
+        run.log_artifact(raw_data)
 
 # testing
 load_and_log()
