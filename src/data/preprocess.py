@@ -33,15 +33,16 @@ def preprocess(dataset, normalize=True, expand_dims=True):
     return TensorDataset(x, y)
 
 def preprocess_and_log(steps):
-
-    with wandb.init(project="MLOps-Pycon2023",name=f"Preprocess Data ExecId-{args.IdExecution}", job_type="preprocess-data") as run:    
+    # Cambio: se actualzia el nombre del proyecto, de processed_data y de la description
+    with wandb.init(project="MLOps-Pycon2023-FashionMNIST",name=f"Preprocess Data ExecId-{args.IdExecution}", job_type="preprocess-data") as run:    
         processed_data = wandb.Artifact(
-            "mnist-preprocess", type="dataset",
-            description="Preprocessed MNIST dataset",
+            "fashion-mnist-preprocess", type="dataset",
+            description="Preprocessed Fashion-MNIST dataset",
             metadata=steps)
          
         # ✔️ declare which artifact we'll be using
-        raw_data_artifact = run.use_artifact('mnist-raw:latest')
+        # Cambio: se actualiza el nombre del artefacto
+        raw_data_artifact = run.use_artifact('fashion-mnist-raw:latest')
 
         # 📥 if need be, download the artifact
         raw_dataset = raw_data_artifact.download(root="./data/artifacts/")
