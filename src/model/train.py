@@ -191,7 +191,7 @@ def train_and_log(config,experiment_id='99'):
     
 def evaluate_and_log(experiment_id='99',config=None,):
     
-    with wandb.init(project="MLOps-Pycon2023", name=f"Eval Model ExecId-{args.IdExecution} ExperimentId-{experiment_id}", job_type="eval-model", config=config) as run:
+    with wandb.init(project="MLOps-Pycon2023-FashionMNIST", name=f"Eval Model ExecId-{args.IdExecution} ExperimentId-{experiment_id}", job_type="eval-model", config=config) as run:
         data = run.use_artifact('fashion-mnist-preprocess:latest')
         data_dir = data.download()
         testing_set = read(data_dir, "test")
