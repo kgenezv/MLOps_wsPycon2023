@@ -26,14 +26,14 @@ num_classes = 10
 input_shape = 784
 
 def build_model_and_log(config, model, model_name="MLP", model_description="Simple MLP"):
-    with wandb.init(project="MLOps-Pycon2023", 
+    with wandb.init(project="MLOps-Pycon2023-FashionMNIST", 
         name=f"initialize Model ExecId-{args.IdExecution}", 
         job_type="initialize-model", config=config) as run:
         config = wandb.config
 
         model_artifact = wandb.Artifact(
-            model_name, type="model",
-            description=model_description,
+            "linear-classifier-fashionmnist", type="model",
+            description="Simple Linear Classifier for FashionMNIST",
             metadata=dict(config))
 
         name_artifact_model = f"initialized_model_{model_name}.pth"
@@ -57,5 +57,3 @@ model_config = {"input_shape":input_shape,
 model = Classifier(**model_config)
 
 build_model_and_log(model_config, model, "linear","Simple Linear Classifier")
-
-#Kevin
